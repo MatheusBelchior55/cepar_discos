@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administração - Música</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #333333;
+            margin: 0;
+            padding: 0;
+        }
+        h2 {
+            font-size: 1.8em;
+            color: #ffde59;
+            margin-top: 30px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+        .container {
+            width: 80%;
+            margin: 50px auto;
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .input-group, .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .form-control, select, input[type="text"], input[type="number"], textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+            margin-top: 5px;
+            background-color: #fafafa;
+        }
+        .form-group input[type="submit"], button {
+            padding: 10px 20px;
+            background-color: #ffde59;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        .form-group input[type="submit"]:hover, button:hover {
+            background-color: #45a049;
+        }
+        .list-group {
+            list-style-type: none;
+            padding-left: 0;
+            margin-top: 20px;
+        }
+        .list-group-item {
+            padding: 10px;
+            margin-bottom: 8px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .list-group-item form {
+            margin: 0;
+        }
+        .btn-danger {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            font-size: 12px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        .btn-danger:hover {
+            background-color: #e53935;
+        }
+        .input-group-append {
+            display: flex;
+            justify-content: flex-end;
+            margin-left: 10px;
+        }
+        .container-footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #888;
+        }
+        .container-footer a {
+            text-decoration: none;
+            color: #888;
+        }
+        .container-footer a:hover {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Seção Artistas -->
+        <h2>Artistas</h2>
+        <form action="/adm/artista" method="POST" class="mb-3">
+            <div class="input-group">
+                <input type="text" name="nome" placeholder="Nome do Artista" required class="form-control">
+                <div class="input-group-append">
+                    <button type="submit" class="btn">Adicionar Artista</button>
+                </div>
+            </div>
+        </form>
+        <ul class="list-group">
+            <% artistas.forEach(artista => { %>
+                <li class="list-group-item">
+                    <%= artista.nome %>
+                    <form action="/adm/artista/delete" method="POST" style="display:inline;">
+                        <input type="hidden" name="artista_id" value="<%= artista.artista_id %>">
+                        <button type="submit" class="btn-danger">Deletar</button>
+                    </form>
+                </li>
+            <% }) %>
+        </ul>
+
+        <!-- Seção Bandas -->
+        <h2>Bandas</h2>
+        <form action="/adm/banda" method="POST" class="mb-3">
+            <div class="input-group">
+                <input type="text" name="nome" placeholder="Nome da Banda" required class="form-control">
+                <div class="input-group-append">
+                    <button type="submit" class="btn">Adicionar Banda</button>
+                </div>
+            </div>
+        </form>
+        <ul class="list-group">
+            <% bandas.forEach(banda => { %>
+                <li class="list-group-item">
+                    <%= banda.nome %>
+                    <form action="/adm/banda/delete" method="POST" style="display:inline;">
+                        <input type="hidden" name="banda_id" value="<%= banda.banda_id %>">
+                        <button type="submit" class="btn-danger">Deletar</button>
+                    </form>
+                </li>
+            <% }) %>
+        </ul>
+
+        <!-- Seção Discos -->
+<h2>Discos</h2>
+<form action="/adm/disco" method="POST" class="mb-3">
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            <input type="text" name="titulo" placeholder="Título do Disco" required class="form-control">
+        </div>
+        <div class="form-group col-md-2">
+            <input type="number" name="ano_lancamento" placeholder="Ano de Lançamento" required class="form-control">
+        </div>
+        <div class="form-group col-md-2">
+            <input type="text" name="tmp_duracao" placeholder="Duração (min)" required class="form-control">
+        </div>
+        <div class="form-group col-md-2">
+            <input type="number" name="estoque" placeholder="Estoque" required class="form-control">
+        </div>
+        <div class="form-group col-md-2">
+            <input type="text" name="imagem" placeholder="Imagem" required class="form-control">
+        </div>
+        <div class="form-group col-md-2">
+            <select name="genero_id" required class="form-control">
+                <option value="">Selecione o Gênero</option>
+                <% generos.forEach(genero => { %>
+                    <option value="<%= genero.genero_id %>"><%= genero.nome %></option>
+                <% }) %>
+            </select>
+        </div>
+        <div class="form-group col-md-2">
+            <select name="banda_id" class="form-control">
+                <option value="NULL">Selecione a Banda</option>
+                <% bandas.forEach(banda => { %>
+                    <option value="<%= banda.banda_id %>"><%= banda.nome %></option>
+                <% }) %>
+            </select>
+        </div>
+        <div class="form-group col-md-2">
+            <select name="artista_id" class="form-control">
+                <option value="NULL">Selecione o Artista</option>
+                <% artistas.forEach(artista => { %>
+                    <option value="<%= artista.artista_id %>"><%= artista.nome %></option>
+                <% }) %>
+            </select>
+        </div>
+    </div>
+    <button type="submit" class="btn">Adicionar Disco</button>
+</form>
+
+<ul class="list-group">
+    <% discos.forEach(disco => { %>
+        <li class="list-group-item">
+            <%= disco.titulo %> - <%= disco.ano_lancamento %> - Duração: <%= disco.tmp_duracao %> min - Estoque: <%= disco.estoque %>
+            
+            <!-- Formulário para atualizar o estoque -->
+            <form action="/adm/disco/atualizar" method="POST" style="display:inline;">
+                <input type="hidden" name="disco_id" value="<%= disco.disco_id %>">
+                <input type="number" name="estoque" value="<%= disco.estoque %>" class="form-control" style="width: 100px; display: inline-block;">
+                <button type="submit" class="btn">Atualizar Estoque</button>
+            </form>
+            
+            <form action="/adm/disco/delete" method="POST" style="display:inline;">
+                <input type="hidden" name="disco_id" value="<%= disco.disco_id %>">
+                <button type="submit" class="btn-danger">Deletar</button>
+            </form>
+        </li>
+    <% }) %>
+</ul>
+
+
+        <!-- Seção Pedidos -->
+        <h2>Pedidos</h2>
+        <ul class="list-group">
+            <% pedidos.forEach(pedido => { %>
+                <li class="list-group-item">
+                    <%= pedido.email_cliente %> - <%= pedido.data_pedido.toLocaleDateString() %> - <%= pedido.disco_id %>
+                    <form action="/adm/pedido/delete" method="POST" style="display:inline;">
+                        <input type="hidden" name="id_pedido" value="<%= pedido.id_pedido %>">
+                        <button type="submit" class="btn-danger">Deletar</button>
+                    </form>
+                </li>
+            <% }) %>
+        </ul>
+    </div>
+
+</body>
+</html>

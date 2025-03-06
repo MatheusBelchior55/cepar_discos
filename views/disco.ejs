@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= disco.titulo %> - Detalhes do Disco</title>
+    <style>
+        body {
+            background-color: #333333;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Cabeçalho */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background-color: #222222;
+        }
+
+        .header img {
+            width: 100px;
+            margin-right: 20px;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            color: #ffde59; /* Cor dourada para o título */
+        }
+
+        .disco-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px;
+        }
+
+        .disco-info {
+            margin-left: 20px;
+            text-align: left;
+        }
+
+        .comprar-btn {
+            background-color: #ffde59;
+            color: #333333;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .comprar-btn:hover {
+            background-color: #ffd700; /* Cor mais clara ao passar o mouse */
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="/images/cepar.png" alt="Logo da Loja">
+        <h1>CEPAR DISCOS</h1>
+    </div>
+
+    <div class="disco-container">
+        <img src="<%= disco.imagem %>" alt="<%= disco.titulo %>" width="200" height="200">
+        <div class="disco-info">
+            <h2><%= disco.titulo %></h2>
+            <p><strong>Tempo de Duração:</strong> <%= disco.tmp_duracao %> minutos</p>
+            <p><strong>Preço:</strong> R$ <%= disco.preco.toFixed(2) %></p>
+            <p><strong>Estoque:</strong> <%= disco.estoque %> unidades</p>
+            <p><strong>Discos Vendidos:</strong> <%= disco.vendas %> unidades</p>
+            <a href="/checkout/<%= disco.disco_id %>" class="btn btn-primary">Comprar Agora</a>
+        </div>
+    </div>
+</body>
+</html>
