@@ -26,7 +26,8 @@ Este projeto é uma aplicação web para gerenciamento e venda de discos musicai
  ├── 📁 routes/          # Rotas da aplicação (adm.js, index.js, etc.)
  ├── 📁 utils/           # Arquivos auxiliares (conexão com o banco de dados)
  ├── 📄 app.js        # Arquivo principal do servidor
- ├── 📄 package.json     # Configuração do Node.js
+ ├── 📄 package.json     # Configuração do Node.js (Express)
+ └── 📄 packpage-lock.json  # Dependencia do Express
  └── 📄 README.md        # Documentação do projeto
 ```
 
